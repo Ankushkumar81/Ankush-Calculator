@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Glassmorphic Calculator | Utkarsh Raj</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="An interactive, premium glassmorphic calculator with advanced functionality, including calculation history, sound effects, full keyboard support, and light/dark mode. Built using CSS Grid, HTML, and vanilla JavaScript.">
+  <meta name="keywords" content="Calculator, Glassmorphic UI, CSS Grid, Vanilla JS, Web App, Utkarsh Raj, Portfolio">
+  <meta name="author" content="Utkarsh Raj">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Aurora Background Drift -->
+  <div class="aurora-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Mouse Spotlight Overlay -->
+  <div class="spotlight" id="spotlight"></div>
+
+  <!-- Back to Portfolio Link -->
+  <div class="back-link-container">
+    <a href="../index.html" class="back-portfolio-btn" id="btn-back-portfolio">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Portfolio
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <main class="calculator-wrapper">
+    <div class="calculator-card" id="calculator-card">
+      
+      <!-- Top Control Bar -->
+      <div class="control-bar">
+        <!-- History Toggle Button -->
+        <button class="icon-btn" id="btn-toggle-history" aria-label="Toggle Calculation History" title="View History">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </button>
+
+        <div class="right-controls">
+          <!-- Audio Feedback Toggle -->
+          <button class="icon-btn" id="btn-toggle-sound" aria-label="Toggle Sound Effects" title="Toggle Button Sounds">
+            <!-- Speaker Wave Icon (Default Sound On) -->
+            <svg class="sound-on-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg class="sound-off-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+
+          <!-- Light/Dark Theme Toggle -->
+          <button class="icon-btn" id="btn-toggle-theme" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
+            <!-- Sun Icon (for dark mode view to toggle to light) -->
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon (for light mode view to toggle to dark) -->
+            <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Display Section -->
+      <div class="display-screen" id="calc-display-screen">
+        <!-- Secondary small line for running formula -->
+        <div class="display-formula" id="calc-display-formula" aria-live="polite"></div>
+        <!-- Main line for input/results -->
+        <div class="display-main" id="calc-display-main" aria-live="polite">0</div>
+      </div>
+
+      <!-- Button Grid -->
+      <div class="buttons-grid" id="calc-buttons-grid">
+        <!-- Row 1 -->
+        <button class="btn btn-functional" id="btn-clear" data-action="clear">AC</button>
+        <button class="btn btn-functional" id="btn-backspace" data-action="backspace" aria-label="Backspace">⌫</button>
+        <button class="btn btn-functional" id="btn-percent" data-action="percent">%</button>
+        <button class="btn btn-operator" id="btn-divide" data-operator="/" aria-label="Divide">÷</button>
+        
+        <!-- Row 2 -->
+        <button class="btn btn-number" id="btn-7" data-number="7">7</button>
+        <button class="btn btn-number" id="btn-8" data-number="8">8</button>
+        <button class="btn btn-number" id="btn-9" data-number="9">9</button>
+        <button class="btn btn-operator" id="btn-multiply" data-operator="*" aria-label="Multiply">×</button>
+        
+        <!-- Row 3 -->
+        <button class="btn btn-number" id="btn-4" data-number="4">4</button>
+        <button class="btn btn-number" id="btn-5" data-number="5">5</button>
+        <button class="btn btn-number" id="btn-6" data-number="6">6</button>
+        <button class="btn btn-operator" id="btn-subtract" data-operator="-" aria-label="Subtract">−</button>
+        
+        <!-- Row 4 -->
+        <button class="btn btn-number" id="btn-1" data-number="1">1</button>
+        <button class="btn btn-number" id="btn-2" data-number="2">2</button>
+        <button class="btn btn-number" id="btn-3" data-number="3">3</button>
+        <button class="btn btn-operator" id="btn-add" data-operator="+" aria-label="Add">+</button>
+        
+        <!-- Row 5 -->
+        <button class="btn btn-functional" id="btn-toggle-sign" data-action="toggle-sign">±</button>
+        <button class="btn btn-number" id="btn-0" data-number="0">0</button>
+        <button class="btn btn-number" id="btn-decimal" data-action="decimal">.</button>
+        <button class="btn btn-equals" id="btn-equals" data-action="equals" aria-label="Equals">=</button>
+      </div>
+
+      <!-- History Side Drawer Panel -->
+      <div class="history-panel" id="history-panel">
+        <div class="history-header">
+          <h3>Calculation History</h3>
+          <button class="icon-btn close-history-btn" id="btn-close-history" aria-label="Close History">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="history-content" id="history-content-list">
+          <!-- Populated by JavaScript -->
+          <div class="empty-history-msg">No history yet. Perform some calculations!</div>
+        </div>
+        <div class="history-footer">
+          <button class="btn-clear-history" id="btn-clear-history">Clear History</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script link -->
+  <script src="script.js"></script>
+</body>
+</html>

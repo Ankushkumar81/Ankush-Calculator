@@ -1,0 +1,655 @@
+/* --- Custom Properties & Theme Setup --- */
+:root[data-theme="dark"] {
+  --bg-color: #0b0d19;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-color: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.4);
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  
+  /* Card Styling */
+  --card-bg: rgba(15, 23, 42, 0.45);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  --display-bg: rgba(7, 10, 19, 0.5);
+  --display-border: rgba(255, 255, 255, 0.04);
+  
+  /* Buttons */
+  --btn-num-bg: rgba(255, 255, 255, 0.04);
+  --btn-num-hover: rgba(255, 255, 255, 0.09);
+  --btn-num-text: #e2e8f0;
+  
+  --btn-func-bg: rgba(255, 255, 255, 0.08);
+  --btn-func-hover: rgba(255, 255, 255, 0.16);
+  --btn-func-text: #cbd5e1;
+  
+  --btn-op-bg: rgba(99, 102, 241, 0.15);
+  --btn-op-hover: rgba(99, 102, 241, 0.28);
+  --btn-op-text: #818cf8;
+  
+  --btn-eq-text: #ffffff;
+  
+  --border-radius-card: 24px;
+  --border-radius-btn: 16px;
+  --scroll-thumb: rgba(255, 255, 255, 0.15);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.25);
+  
+  --glow-color: rgba(99, 102, 241, 0.15);
+}
+
+:root[data-theme="light"] {
+  --bg-color: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent-color: #4f46e5;
+  --accent-glow: rgba(79, 70, 229, 0.3);
+  --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #3730a3 0%, #6d28d9 100%);
+  
+  /* Card Styling */
+  --card-bg: rgba(255, 255, 255, 0.45);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+  --display-bg: rgba(255, 255, 255, 0.6);
+  --display-border: rgba(0, 0, 0, 0.04);
+  
+  /* Buttons */
+  --btn-num-bg: rgba(0, 0, 0, 0.03);
+  --btn-num-hover: rgba(0, 0, 0, 0.08);
+  --btn-num-text: #1e293b;
+  
+  --btn-func-bg: rgba(0, 0, 0, 0.06);
+  --btn-func-hover: rgba(0, 0, 0, 0.12);
+  --btn-func-text: #334155;
+  
+  --btn-op-bg: rgba(79, 70, 229, 0.1);
+  --btn-op-hover: rgba(79, 70, 229, 0.2);
+  --btn-op-text: #4f46e5;
+  
+  --btn-eq-text: #ffffff;
+  
+  --border-radius-card: 24px;
+  --border-radius-btn: 16px;
+  --scroll-thumb: rgba(0, 0, 0, 0.1);
+  --scroll-thumb-hover: rgba(0, 0, 0, 0.2);
+  
+  --glow-color: rgba(79, 70, 229, 0.08);
+}
+
+/* --- Global Reset & Foundation --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  user-select: none; /* Prevents text selection highlight during double clicks on buttons */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  padding: 20px;
+}
+
+/* --- Aurora Background Blobs (Drifting Gradient) --- */
+.aurora-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  animation: drift 25s infinite alternate ease-in-out;
+  transition: opacity 0.5s ease;
+}
+
+:root[data-theme="light"] .blob {
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  filter: blur(80px);
+}
+
+.blob-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+}
+
+.blob-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, #a855f7 0%, rgba(168, 85, 247, 0) 70%);
+  animation-delay: -5s;
+  animation-duration: 30s;
+}
+
+.blob-3 {
+  top: 40%;
+  left: 30%;
+  width: 35vw;
+  height: 35vw;
+  background: radial-gradient(circle, #ec4899 0%, rgba(236, 72, 153, 0) 70%);
+  animation-delay: -10s;
+  animation-duration: 20s;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(80px, 50px) scale(1.15) rotate(180deg);
+  }
+  100% {
+    transform: translate(-40px, -60px) scale(0.9) rotate(360deg);
+  }
+}
+
+/* --- Spotlight Effect --- */
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(400px circle at 0px 0px, var(--glow-color) 0%, transparent 80%);
+  z-index: -1;
+  transition: background 0.1s ease;
+}
+
+/* --- Back Portfolio Link --- */
+.back-link-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.back-portfolio-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--btn-num-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.back-portfolio-btn:hover {
+  color: var(--text-primary);
+  background: var(--btn-num-hover);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.back-portfolio-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.back-portfolio-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+/* --- Main Layout Wrapper --- */
+.calculator-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  z-index: 2;
+}
+
+/* --- Calculator Card --- */
+.calculator-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius-card);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  padding: 24px;
+  position: relative;
+  overflow: hidden; /* To clip the sliding history panel */
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+/* --- Top Control Bar --- */
+.control-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.right-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: var(--btn-num-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  background: var(--btn-num-hover);
+  transform: scale(1.08);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+.icon-btn svg {
+  stroke: currentColor;
+  transition: stroke 0.3s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Display Screen --- */
+.display-screen {
+  background: var(--display-bg);
+  border: 1px solid var(--display-border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  word-break: break-all;
+  margin-bottom: 24px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.display-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--text-secondary);
+  min-height: 20px;
+  margin-bottom: 6px;
+  text-align: right;
+  letter-spacing: -0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  direction: ltr;
+}
+
+.display-main {
+  font-family: 'Outfit', sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+  letter-spacing: -0.5px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* Hide default scrollbar on Firefox */
+  direction: ltr;
+}
+
+.display-main::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on Chrome/Safari */
+}
+
+/* --- Button Grid System --- */
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 12px;
+}
+
+.btn {
+  border: 1px solid transparent;
+  outline: none;
+  font-size: 20px;
+  font-weight: 500;
+  height: 64px;
+  border-radius: var(--border-radius-btn);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Numeric Buttons styling */
+.btn-number {
+  background-color: var(--btn-num-bg);
+  border-color: var(--card-border);
+  color: var(--btn-num-text);
+}
+
+.btn-number:hover {
+  background-color: var(--btn-num-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Functional Buttons (AC, Clear, delete, percent) */
+.btn-functional {
+  background-color: var(--btn-func-bg);
+  border-color: var(--card-border);
+  color: var(--btn-func-text);
+  font-weight: 600;
+}
+
+.btn-functional:hover {
+  background-color: var(--btn-func-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Operator Buttons (+, -, *, /) */
+.btn-operator {
+  background-color: var(--btn-op-bg);
+  border-color: rgba(99, 102, 241, 0.1);
+  color: var(--btn-op-text);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.btn-operator:hover {
+  background-color: var(--btn-op-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--accent-glow);
+}
+
+/* Operator Active visual highlight */
+.btn-operator.op-active {
+  background: var(--text-primary);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* Equals Button */
+.btn-equals {
+  background: var(--accent-gradient);
+  color: var(--btn-eq-text);
+  font-size: 26px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px var(--accent-glow);
+}
+
+.btn-equals:hover {
+  background: var(--accent-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--accent-glow);
+}
+
+/* Common Button Press Feedback */
+.btn:active {
+  transform: translateY(1px) scale(0.96) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  filter: brightness(0.95);
+}
+
+/* Keyboard Typing Indicator (subtle ripple/glow class triggered by js) */
+.btn.keyboard-active {
+  transform: translateY(1px) scale(0.96);
+  filter: brightness(0.9);
+}
+
+/* --- History Side Drawer Panel --- */
+.history-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: var(--border-radius-card);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  padding: 24px;
+}
+
+.history-panel.open {
+  transform: translateX(0);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.history-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.close-history-btn {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+
+.history-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+.history-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.history-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-content::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 10px;
+}
+
+.history-content::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}
+
+/* History Items */
+.history-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+}
+
+.history-item:hover {
+  background: var(--btn-num-hover);
+}
+
+.history-item:active {
+  transform: scale(0.98);
+}
+
+.history-item-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  word-break: break-all;
+  text-align: right;
+}
+
+.history-item-result {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-all;
+  text-align: right;
+}
+
+/* Empty History Msg */
+.empty-history-msg {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 0 20px;
+}
+
+.history-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-clear-history {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  outline: none;
+  width: 100%;
+}
+
+.btn-clear-history:hover {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.btn-clear-history:active {
+  transform: scale(0.98);
+}
+
+/* --- Media Queries (Responsiveness) --- */
+@media (max-height: 700px) {
+  body {
+    padding: 10px;
+  }
+  
+  .calculator-card {
+    padding: 16px;
+  }
+  
+  .display-screen {
+    margin-bottom: 16px;
+    min-height: 90px;
+    padding: 12px 16px;
+  }
+  
+  .display-main {
+    font-size: 32px;
+  }
+  
+  .buttons-grid {
+    grid-gap: 8px;
+  }
+  
+  .btn {
+    height: 52px;
+    font-size: 18px;
+  }
+  
+  .btn-operator {
+    font-size: 22px;
+  }
+  
+  .btn-equals {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    padding: 8px;
+  }
+  
+  .calculator-card {
+    padding: 14px;
+    border-radius: 20px;
+  }
+  
+  .buttons-grid {
+    grid-gap: 8px;
+  }
+  
+  .btn {
+    height: 52px;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+}

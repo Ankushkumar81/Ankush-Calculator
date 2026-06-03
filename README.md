@@ -7,7 +7,7 @@ This project performs basic arithmetic operations with an interactive user inter
 
 ## 🌐 Live Demo
 
-https://github.com/Ankushkumar81/Ankush-Calculator
+https://ankushkumar81.github.io/Ankush-Calculator/
 
 ---
 
